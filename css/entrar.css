@@ -1,0 +1,168 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0a0a0a;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Cabeçalho igual à home */
+header {
+  background: #111;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li { margin-left: 20px; }
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+nav a:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* Corpo centralizado */
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 10px;
+}
+
+/* Caixa de autenticação */
+.auth-container {
+  background: #111;
+  padding: 40px 30px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.auth-container h2 {
+  margin-bottom: 25px;
+  font-size: 24px;
+}
+
+/* Campos */
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 6px;
+  background: #222;
+  color: #fff;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline: 2px solid #ffd700;
+}
+
+/* Botões */
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  background: #ffd700;
+  border: none;
+  color: #000;
+  font-weight: bold;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+button:hover {
+  background: #e6c200;
+  transform: scale(1.03);
+}
+
+/* Mensagens */
+.msg {
+  font-size: 14px;
+  margin-top: 10px;
+  height: 20px;
+  transition: opacity 0.3s;
+}
+
+.msg.sucesso {
+  color: #00ff88;
+}
+
+.msg.erro {
+  color: #ff4444;
+}
+
+/* Links */
+.links {
+  margin-top: 20px;
+}
+
+.links a {
+  color: #ffd700;
+  text-decoration: none;
+  font-size: 14px;
+  margin: 0 8px;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+
+/* Caixas alternadas */
+.form-box { display: none; }
+.form-box.active { display: block; }
+
+/* Rodapé */
+footer {
+  background: #111;
+  text-align: center;
+  padding: 12px 0;
+  font-size: 14px;
+  border-top: 1px solid #333;
+}
+
+/* Responsividade */
+@media (max-width: 450px) {
+  .auth-container {
+    width: 90%;
+    padding: 25px 20px;
+  }
+  input, button {
+    font-size: 14px;
+    padding: 10px;
+  }
+  .auth-container h2 {
+    font-size: 20px;
+  }
+}

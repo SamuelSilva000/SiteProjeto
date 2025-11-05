@@ -1,0 +1,173 @@
+/* ======== ESTILO BASE ======== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0a0a0a;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ======== CABEÇALHO ======== */
+header {
+  background: #111;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  margin-left: 20px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+nav a:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* ======== CONTEÚDO PRINCIPAL ======== */
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 10px;
+}
+
+/* ======== FORMULÁRIO DE VENDA ======== */
+.carro-box {
+  background: #111;
+  padding: 40px 30px;
+  border-radius: 10px;
+  text-align: center;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.carro-box h1 {
+  font-size: 26px;
+  margin-bottom: 25px;
+  color: #ffd700;
+}
+
+/* ======== CAMPOS DO FORMULÁRIO ======== */
+.carro-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.carro-box input {
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: #000;
+  color: #fff;
+  font-size: 15px;
+  transition: all 0.3s;
+}
+
+.carro-box input::placeholder {
+  color: #aaa;
+}
+
+.carro-box input:focus {
+  outline: none;
+  border-color: #ffd700;
+}
+
+/* ======== BOTÕES PADRONIZADOS ======== */
+.btn,
+.btn-voltar {
+  display: inline-block;
+  width: 85%;              /* largura uniforme */
+  max-width: 320px;        /* limite para telas grandes */
+  height: 48px;            /* altura padronizada */
+  line-height: 48px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 15px;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s;
+  cursor: pointer;
+  margin: 8px auto 0 auto;
+  box-sizing: border-box;
+}
+
+/* Botão principal (dourado) */
+.btn {
+  background: #ffd700;
+  color: #000;
+  border: none;
+}
+
+.btn:hover {
+  background: #e6c200;
+  transform: scale(1.03);
+}
+
+/* Botão secundário (cinza) */
+.btn-voltar {
+  background: #333;
+  color: #fff;
+  border: none;
+}
+
+.btn-voltar:hover {
+  background: #555;
+  transform: scale(1.03);
+}
+
+/* ======== RODAPÉ ======== */
+footer {
+  background: #111;
+  text-align: center;
+  padding: 12px 0;
+  font-size: 14px;
+  border-top: 1px solid #333;
+}
+
+/* ======== RESPONSIVIDADE ======== */
+@media (max-width: 600px) {
+  .carro-box {
+    padding: 25px 20px;
+    max-width: 90%;
+  }
+
+  .carro-box h1 {
+    font-size: 22px;
+  }
+
+  .btn,
+  .btn-voltar {
+    width: 100%;
+    font-size: 14px;
+    height: 44px;
+    line-height: 44px;
+  }
+}
