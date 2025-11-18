@@ -1,214 +1,160 @@
-/* home.css - versão final compacta, textos centralizados nos carros */
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0a0a0a;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+/* Responsive Black & White Master Stylesheet */
+:root {
+  --black: #000000;
+  --white: #FFFFFF;
+  --gray-900: #111111;
+  --gray-800: #222222;
+  --gray-700: #333333;
+  --gray-600: #444444;
+  --gray-500: #555555;
+  --gray-400: #666666;
+  --gray-300: #777777;
+  --gray-200: #888888;
+  --gray-100: #999999;
+  --gray-50: #EEEEEE;
 }
 
-header {
-  background: #111;
-  padding: 15px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-header .logo {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-nav ul {
-  display: flex;
-  list-style: none;
+/* Base Responsive Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  align-items: center;
+  transition: all 0.3s ease;
 }
 
-nav li {
-  margin-left: 20px;
+/* Universal Responsive Settings */
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+  height: 100%;
+  overflow-x: hidden;
+  filter: grayscale(100%) contrast(150%);
+  background-color: var(--white);
+  color: var(--black);
 }
 
-nav a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 6px 12px;
-  border-radius: 5px;
-  transition: all 0.3s;
-}
-
-nav a:hover {
-  background: #fff;
-  color: #000;
-}
-
-nav .btn-venda {
-  background: #ffd700;
-  color: #000;
-}
-
-nav .btn-venda:hover {
-  background: #e6c200;
-}
-
-main {
-  flex: 1;
-  padding: 20px 2.5%;
-  max-width: 95%;
-  margin: 0 auto;
-}
-
-/* Seção intro compacta no topo */
-.intro {
-  text-align: center;
-  margin-bottom: 5px;
-}
-
-.intro h1 {
-  font-size: 28px;
-  margin: 0 0 5px 0;
-}
-
-.intro p {
-  font-size: 16px;
-  color: #ccc;
-  margin: 0 0 5px 0;
-}
-
-.intro .btn-ofertas {
-  display: inline-block;
-  padding: 10px 24px;
-  background: #ffd700;
-  color: #000;
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 6px;
-  transition: all 0.3s;
-  margin-bottom: 2px;
-}
-
-.intro .btn-ofertas:hover {
-  background: #e6c200;
-  transform: scale(1.05);
-}
-
-.destaque h2 {
-  font-size: 26px;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.grid-carros {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
-
-.carro {
-  background: #111;
-  border-radius: 8px;
-  overflow: hidden;
-  text-decoration: none;
-  color: #fff;
-  transition: transform 0.3s, box-shadow 0.3s;
-  height: 240px;
+/* Ultra-Responsive Body */
+body {
+  min-height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(
+    to bottom,
+    var(--white) 0%,
+    var(--gray-50) 100%
+  );
 }
 
-.carro:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15);
-}
-
-.carro img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  display: block;
-}
-
-.carro-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* centraliza verticalmente */
-  align-items: center;     /* centraliza horizontalmente */
-  padding: 5px 10px;
-  text-align: center;
-}
-
-.carro h3, .carro p {
-  margin: 2px 0;
-}
-
-footer {
-  background: #111;
-  text-align: center;
-  padding: 12px 0;
-  font-size: 14px;
-  border-top: 1px solid #333;
-}
-
-/* Botão "Ver detalhes" */
-.btn-ver {
-  display: inline-block;
-  margin-top: 5px;
-  padding: 6px 12px;
-  background: #ffd700;
-  color: #000;
-  font-weight: bold;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background 0.3s, transform 0.2s;
-}
-
-.btn-ver:hover {
-  background: #e6c200;
-  transform: scale(1.05);
-}
-
-/* Responsividade */
-@media (max-width: 1100px) {
-  .grid-carros {
-    grid-template-columns: repeat(2, 1fr);
+/* Extreme Media Queries */
+@media (max-width: 1200px) {
+  html {
+    font-size: 60%;
   }
 }
 
-@media (max-width: 700px) {
-  header {
-    flex-direction: column;
-    align-items: center;
-  }
-  nav ul {
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  .grid-carros {
-    grid-template-columns: 1fr;
+@media (max-width: 992px) {
+  html {
+    font-size: 58%;
   }
 }
 
-@media (max-width: 500px) {
-  main {
-    padding: 15px 5%;
+@media (max-width: 768px) {
+  html {
+    font-size: 56%;
   }
-  .intro h1 {
-    font-size: 24px;
+}
+
+@media (max-width: 576px) {
+  html {
+    font-size: 54%;
   }
-  .intro p {
-    font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 52%;
   }
-  .intro .btn-ofertas {
-    padding: 8px 20px;
-    font-size: 14px;
+}
+
+@media (max-width: 360px) {
+  html {
+    font-size: 50%;
+  }
+}
+
+@media (max-width: 240px) {
+  html {
+    font-size: 48%;
+  }
+}
+
+/* Print Styles */
+@media print {
+  body {
+    background: var(--white) !important;
+    color: var(--black) !important;
+    font-size: 12pt;
+  }
+  * {
+    filter: none !important;
+  }
+}
+
+/* Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Color Scheme Preferences */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --black: #FFFFFF;
+    --white: #000000;
+  }
+  body {
+    background: linear-gradient(
+      to bottom,
+      var(--white) 0%,
+      var(--gray-900) 100%
+    );
+  }
+}
+
+/* High Contrast Mode */
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  body {
+    forced-color-adjust: none;
+  }
+}
+
+/* Portrait vs Landscape */
+@media (orientation: portrait) {
+  body {
+    min-height: 100vh;
+  }
+}
+@media (orientation: landscape) {
+  body {
+    min-height: 100vw;
+  }
+}
+
+/* Retina Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  body {
+    -webkit-font-smoothing: subpixel-antialiased;
   }
 }
