@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garagem do Alemão - Meu Perfil</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1 class="logo">Garagem do Alemão</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="carros.html">Carros</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                    <li class="nav-conta"><a href="conta.html" id="linkConta">Conta</a></li> 
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="area-perfil">
+            
+            <div class="perfil-info">
+                <h2>Bem-vindo(a), <span id="nomeUsuario">Usuário</span>!</h2>
+                <button id="btnSair" class="btn-principal" style="width: auto; background-color: var(--cinza-escuro);">Sair da Conta</button>
+            </div>
+            
+            <div class="area-perfil-grid">
+            
+                <div class="perfil-dados">
+                    <h3>Meus Dados Cadastrais</h3>
+                    <p><strong>E-mail:</strong> <span id="perfilEmail"></span></p>
+                    <p><strong>CEP:</strong> <span id="perfilCep"></span></p>
+                    <p><strong>Endereço:</strong> <span id="perfilEndereco"></span></p>
+                </div>
+
+                <div class="perfil-anunciar">
+                    <h3>Anunciar Novo Carro</h3>
+                    <form id="formAnunciarCarro" class="form-anuncio">
+                        
+                        <div class="campos-anuncio">
+                            
+                            <label for="anuncioModelo">Modelo e Ano:</label>
+                            <input type="text" id="anuncioModelo" required placeholder="Ex: Honda Civic 2018">
+
+                            <label for="anuncioPreco">Preço (R$):</label>
+                            <input type="number" id="anuncioPreco" required min="1000" placeholder="Apenas números, Ex: 90000">
+
+                            <label for="anuncioDescricao">Descrição do Carro:</label>
+                            <textarea id="anuncioDescricao" rows="4" required placeholder="Ex: Único dono, IPVA pago, pneus novos."></textarea>
+                            
+                            <label for="anuncioImagem">Foto Principal:</label>
+                            <input type="file" id="anuncioImagem" accept="image/*" required>
+                        
+                        </div>
+
+                        <button type="submit" class="btn-principal btn-anunciar">Anunciar</button>
+                    </form>
+                </div>
+                
+                <div class="perfil-excluir">
+                    <h3>Opções de Conta</h3>
+                    <p>Excluir permanentemente sua conta e todos os dados relacionados.</p>
+                    <button id="btnExcluirConta" class="btn-excluir">Excluir Conta</button>
+                </div>
+            
+            </div>
+            
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Garagem do Alemão - Projeto Acadêmico Senac</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
