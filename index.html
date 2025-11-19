@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Garagem do Alemão - Home</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -24,93 +24,33 @@
 
     <section class="hero">
         <div class="container">
-            <h2>Qualidade e Confiança</h2>
-            <p>Encontre os melhores carros usados do Brasil.</p>
+            <h2>Bem-vindo à Garagem do Alemão</h2>
+            <p>Seu próximo carro está aqui. Encontre as melhores ofertas!</p>
         </div>
     </section>
 
     <main class="container">
-        <h3>Carros em Destaque:</h3>
-        <div class="grid-destaques">
-
-            <div class="card-carro">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Volkswagen_Gol_Highline_2023_%2853708009248%29_%28cropped%29.jpg" alt="Hyundai HB20 Sedan">
-                <div class="card-info">
-                    <h4 class="nome-carro">Hyundai HB20 Sedan</h4>
-                    <p>2016 | SP | R$ 40.000</p> 
-                    <a href="carro1.html">Ver detalhes</a>
+        <section class="destaques">
+            <h2>Destaques da Semana</h2>
+            
+            <div class="grid-destaques" id="listaCarros">
                 </div>
-            </div>
 
-            <div class="card-carro">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Volkswagen_Gol_Highline_2023_%2853708009248%29_%28cropped%29.jpg" alt="Toyota Hatch Yaris">
-                <div class="card-info">
-                    <h4 class="nome-carro">Toyota Hatch Yaris</h4>
-                    <p>2017 | SP | R$ 55.000</p>
-                    <a href="carro2.html">Ver detalhes</a>
-                </div>
-            </div>
-
-            <div class="card-carro">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Volkswagen_Gol_Highline_2023_%2853708009248%29_%28cropped%29.jpg" alt="Fiat Uno Mille">
-                <div class="card-info">
-                    <h4 class="nome-carro">Fiat Uno Mille</h4>
-                    <p>2013 | MG | R$ 25.000</p>
-                    <a href="carro3.html">Ver detalhes</a>
-                </div>
-            </div>
-
-            <div class="card-carro">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Volkswagen_Gol_Highline_2023_%2853708009248%29_%28cropped%29.jpg" alt="Sedan Lada Samara">
-                <div class="card-info">
-                    <h4 class="nome-carro">Sedan Lada Samara</h4>
-                    <p>2012 | RS | R$ 30.000</p>
-                    <a href="carro4.html">Ver detalhes</a>
-                </div>
-            </div>
-
-            <div class="card-carro">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Volkswagen_Gol_Highline_2023_%2853708009248%29_%28cropped%29.jpg" alt="Toyota Etios Liva">
-                <div class="card-info">
-                    <h4 class="nome-carro">Toyota Etios Liva</h4>
-                    <p>2018 | RJ | R$ 40.000</p>
-                    <a href="carro5.html">Ver detalhes</a>
-                </div>
-            </div>
-
-            <div class="card-carro">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Volkswagen_Gol_Highline_2023_%2853708009248%29_%28cropped%29.jpg" alt="Kia Besta Pregio">
-                <div class="card-info">
-                    <h4 class="nome-carro">Kia Besta Pregio</h4>
-                    <p>2006 | PR | R$ 11.000</p>
-                    <a href="carro6.html">Ver detalhes</a>
-                </div>
-            </div>
-
-            <div class="card-carro">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Volkswagen_Gol_Highline_2023_%2853708009248%29_%28cropped%29.jpg" alt="Lada Laika Riva">
-                <div class="card-info">
-                    <h4 class="nome-carro">Lada Laika Riva</h4>
-                    <p>2012 | PE | R$ 35.000</p>
-                    <a href="carro7.html">Ver detalhes</a>
-                </div>
-            </div>
-
-            <div class="card-carro">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Volkswagen_Gol_Highline_2023_%2853708009248%29_%28cropped%29.jpg" alt="Volkswagen Fusca Typ1">
-                <div class="card-info">
-                    <h4 class="nome-carro">Volkswagen Fusca Typ1</h4>
-                    <p>2003 | ES | R$ 18.000</p>
-                    <a href="carro8.html">Ver detalhes</a>
-                </div>
-            </div>
-
-        </div>
+        </section>
+        
     </main>
+    
+    <div id="carroModal" class="modal-overlay oculto">
+        <div class="modal-container">
+            <button id="fecharModal" class="fechar-modal">×</button>
+            <div id="modalBody" class="modal-body">
+                </div>
+        </div>
+    </div>
     <footer>
         <p>&copy; 2024 Garagem do Alemão - Projeto Acadêmico Senac</p>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
