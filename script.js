@@ -19,18 +19,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const inputCidade = document.getElementById('cidade');
     const inputEstado = document.getElementById('estado');
 
+    // Variáveis da busca e dos cards
     const inputBusca = document.getElementById('campoPesquisa');
-    const listaCarros = document.querySelectorAll('.card-carro');
     
     const formAnunciarCarro = document.getElementById('formAnunciarCarro');
     const btnExcluirConta = document.getElementById('btnExcluirConta');
+    
+    // Variáveis da Modal 
+    const modal = document.getElementById('carroModal');
+    const fecharModal = document.getElementById('fecharModal');
+    const modalBody = document.getElementById('modalBody');
 
 
     // --- FUNÇÕES DE UTILIDADE GERAL ---
     
     // Feedback Sutil (Pop-up) - Fundo Preto e Texto Branco
     const msgFeedback = document.createElement('div');
-    msgFeedback.style.cssText = 'position: fixed; bottom: 20px; right: 20px; background-color: var(--preto); color: var(--branco); padding: 10px 20px; z-index: 1000; border-radius: 5px; opacity: 0; transition: opacity 0.5s; font-size: 14px;';
+    msgFeedback.style.cssText = 'position: fixed; bottom: 20px; right: 20px; background-color: #000; color: #fff; padding: 10px 20px; z-index: 1000; border-radius: 5px; opacity: 0; transition: opacity 0.5s; font-size: 14px;';
     document.body.appendChild(msgFeedback);
 
     function mostrarFeedback(mensagem) {
@@ -177,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const nome = document.getElementById('cadastroNome').value;
                 const email = document.getElementById('cadastroEmail').value;
                 const senha = document.getElementById('cadastroSenha').value;
-                const confirmaSenha = document.getElementById('cadastroConfirmaSenha').value; // NOVO CAMPO
+                const confirmaSenha = document.getElementById('cadastroConfirmaSenha').value; 
                 
                 const cep = inputCep ? inputCep.value : '';
                 const endereco = inputEndereco ? inputEndereco.value : '';
@@ -220,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function() {
             formEsqueciSenha.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                const emailRecuperacao = document.getElementById('esqueciEmail').value; // Corrigido ID para 'esqueciEmail'
+                const emailRecuperacao = document.getElementById('esqueciEmail').value; 
                 let users = JSON.parse(localStorage.getItem('users')) || [];
                 const usuarioEncontrado = users.find(user => user.email === emailRecuperacao);
 
@@ -314,8 +319,8 @@ document.addEventListener('DOMContentLoaded', function() {
             formAnunciarCarro.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                const modelo = document.getElementById('anuncioModelo').value;
-                const preco = document.getElementById('anuncioPreco').value;
+                const modeloCompleto = document.getElementById('anuncioModelo').value;
+                const preco = parseFloat(document.getElementById('anuncioPreco').value);
                 const descricao = document.getElementById('anuncioDescricao').value; 
                 const imagemInput = document.getElementById('anuncioImagem');
                 
@@ -324,6 +329,12 @@ document.addEventListener('DOMContentLoaded', function() {
                      return;
                 }
                 
+                // Simulação de extração de dados para o card/modal
+                const modeloPartes = modeloCompleto.split(' ');
+                const ano = parseInt(modeloPartes.pop()) || new Date().getFullYear();
+                const nomeCarro = modeloPartes.join(' ');
+                const marca = nomeCarro.split(' ')[0]; // Simples extração da marca
+
                 const reader = new FileReader();
                 reader.onload = function(event) {
                     const imagemBase64 = event.target.result;
@@ -331,10 +342,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     let carrosAVenda = JSON.parse(localStorage.getItem('carrosAVenda')) || [];
                     
                     const novoCarro = {
-                        id: Date.now(), 
-                        vendedorEmail: usuarioLogado.email,
-                        modelo: modelo,
+                        id: Date.now(), // ID único
+                        vendedor: usuarioLogado.nome, // Nome do vendedor
+                        nome: nomeCarro, // Nome do carro
+                        marca: marca,
+                        ano: ano,
+                        estado: usuarioLogado.estado, 
                         preco: preco,
+                        km: 0, // Quilometragem padrão para novo anúncio
                         descricao: descricao, 
                         imagem: imagemBase64 
                     };
@@ -342,7 +357,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     carrosAVenda.push(novoCarro);
                     localStorage.setItem('carrosAVenda', JSON.stringify(carrosAVenda));
                     
-                    mostrarFeedback(`Carro ${modelo} anunciado com sucesso!`);
+                    mostrarFeedback(`Carro ${nomeCarro} anunciado com sucesso!`);
                     formAnunciarCarro.reset(); 
                 };
                 
@@ -351,21 +366,235 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // --- NOVO: DADOS E LÓGICA DE GERAÇÃO DE CARDS (Para carros.html e index.html) ---
 
-    // --- LÓGICA DA PÁGINA CARROS.HTML (PESQUISA) ---
-    if (inputBusca) {
-        inputBusca.addEventListener('keyup', function() {
-            const termoDigitado = inputBusca.value.toLowerCase();
-            listaCarros.forEach(function(carro) {
-                const nomeCarro = carro.querySelector('.nome-carro').innerText.toLowerCase();
-                if (nomeCarro.includes(termoDigitado)) {
-                    carro.style.display = 'flex'; 
-                } else {
-                    carro.style.display = 'none'; 
+    // Dados base (Simulação de um estoque inicial)
+    const dadosCarros = [
+        { 
+            id: 11, nome: "Nissan Versa", marca: "Nissan", ano: 2020, estado: "DF", preco: 68000, 
+            km: 55000, vendedor: "João Silva", descricao: "Carro de único dono, muito novo, todas as revisões feitas na concessionária.", 
+            imagem: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Volkswagen_Gol_Highline_2023_%2853708009248%29_%28cropped%29.jpg" 
+        },
+        { 
+            id: 3, nome: "Fiat Uno Mille", marca: "Fiat", ano: 2013, estado: "MG", preco: 25000, 
+            km: 120000, vendedor: "Maria Oliveira", descricao: "O clássico Uno, excelente para o dia a dia. Documentação em ordem.", 
+            imagem: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Volkswagen_Gol_Highline_2023_%2853708009248%29_%28cropped%29.jpg" 
+        },
+        { 
+            id: 1, nome: "Hyundai HB20 Sedan", marca: "Hyundai", ano: 2016, estado: "SP", preco: 40000, 
+            km: 80000, vendedor: "Pedro Costa", descricao: "Versão sedan, confortável e econômico. Pneus novos.", 
+            imagem: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Volkswagen_Gol_Highline_2023_%2853708009248%29_%28cropped%29.jpg" 
+        },
+        { 
+            id: 6, nome: "Kia Besta Pregio", marca: "Kia", ano: 2006, estado: "PR", preco: 11000, 
+            km: 250000, vendedor: "Ana Pereira", descricao: "Ótima para transporte de cargas ou passageiros. Precisa de alguns reparos.", 
+            imagem: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Volkswagen_Gol_Highline_2023_%2853708009248%29_%28cropped%29.jpg" 
+        },
+        { 
+            id: 2, nome: "Toyota Hatch Yaris", marca: "Toyota", ano: 2017, estado: "SP", preco: 55000, 
+            km: 45000, vendedor: "Lucas Fernandes", descricao: "Carro compacto, seguro e com baixa quilometragem. Perfeito estado.", 
+            imagem: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Volkswagen_Gol_Highline_2023_%2853708009248%29_%28cropped%29.jpg" 
+        },
+        { 
+            id: 12, nome: "Ford Fiesta", marca: "Ford", ano: 2016, estado: "MT", preco: 39000, 
+            km: 95000, vendedor: "Fernanda Lima", descricao: "Motor 1.6, completo. Pequenos detalhes na pintura.", 
+            imagem: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Volkswagen_Gol_Highline_2023_%2853708009248%29_%28cropped%29.jpg" 
+        },
+        { 
+            id: 10, nome: "Chevrolet Corsa", marca: "Chevrolet", ano: 2008, estado: "CE", preco: 15000, 
+            km: 180000, vendedor: "Rafael Santos", descricao: "Carro popular, econômico e manutenção barata. Ideal para iniciantes.", 
+            imagem: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Volkswagen_Gol_Highline_2023_%2853708009248%29_%28cropped%29.jpg" 
+        },
+        { 
+            id: 4, nome: "Sedan Lada Samara", marca: "Lada", ano: 2012, estado: "RS", preco: 30000, 
+            km: 110000, vendedor: "Patrícia Souza", descricao: "Sedan espaçoso, mecânica robusta. Clássico para colecionadores.", 
+            imagem: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Volkswagen_Gol_Highline_2023_%2853708009248%29_%28cropped%29.jpg" 
+        },
+        { 
+            id: 8, nome: "Volkswagen Fusca Typ1", marca: "Volkswagen", ano: 2003, estado: "ES", preco: 18000, 
+            km: 75000, vendedor: "Fábio Junior", descricao: "Fusca em ótimo estado de conservação. Motor revisado.", 
+            imagem: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Volkswagen_Gol_Highline_2023_%2853708009248%29_%28cropped%29.jpg" 
+        },
+        { 
+            id: 9, nome: "Renault Sandero", marca: "Renault", ano: 2019, estado: "BA", preco: 42000, 
+            km: 60000, vendedor: "Carla Nunes", descricao: "Carro familiar, grande porta-malas. Documentos ok.", 
+            imagem: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Volkswagen_Gol_Highline_2023_%2853708009248%29_%28cropped%29.jpg" 
+        },
+        { 
+            id: 7, nome: "Lada Laika Riva", marca: "Lada", ano: 2012, estado: "PE", preco: 35000, 
+            km: 90000, vendedor: "André Guedes", descricao: "Perfeito para quem busca um carro único e estiloso. Raridade!", 
+            imagem: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Volkswagen_Gol_Highline_2023_%2853708009248%29_%28cropped%29.jpg" 
+        },
+        { 
+            id: 5, nome: "Toyota Etios Liva", marca: "Toyota", ano: 2018, estado: "RJ", preco: 40000, 
+            km: 70000, vendedor: "Viviane Rosa", descricao: "Hatchback confiável e muito econômico. Revisão em dia.", 
+            imagem: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Volkswagen_Gol_Highline_2023_%2853708009248%29_%28cropped%29.jpg" 
+        },
+    ];
+
+    // Combina carros iniciais + carros anunciados por usuários
+    const carrosAnunciados = JSON.parse(localStorage.getItem('carrosAVenda')) || [];
+    const todosCarros = [...dadosCarros, ...carrosAnunciados];
+
+    // Elemento onde os cards serão adicionados
+    const containerCarros = document.getElementById('listaCarros') || document.querySelector('.grid-destaques');
+
+
+    // Função para preencher a modal com os dados
+    function preencherModal(carro) {
+        const precoFormatado = carro.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0 });
+        const kmFormatado = carro.km.toLocaleString('pt-BR');
+
+        modalBody.innerHTML = `
+            <div class="modal-conteudo-grid">
+                <div class="modal-imagem">
+                    <img src="${carro.imagem}" alt="${carro.nome}">
+                </div>
+                
+                <div class="modal-info-principal">
+                    <h3>${carro.nome}</h3>
+                    <p class="modal-preco">${precoFormatado}</p>
+                    <p><strong>Vendedor:</strong> ${carro.vendedor}</p>
+                    <p><strong>Marca:</strong> ${carro.marca}</p>
+                    <p><strong>Ano:</strong> ${carro.ano}</p>
+                    <p><strong>KM Rodado:</strong> ${kmFormatado} km</p>
+                    <p><strong>Estado:</strong> ${carro.estado}</p>
+                </div>
+
+                <div class="modal-descricao">
+                    <h4>Descrição do Vendedor:</h4>
+                    <p>${carro.descricao}</p>
+                </div>
+            </div>
+
+            <div class="modal-acoes">
+                <button id="btnInteresse" class="btn-principal">
+                    💬 Tenho Interesse (Enviar WhatsApp)
+                </button>
+                <button id="btnDenuncia" class="btn-denuncia">
+                    ⚠️ Denunciar Anúncio
+                </button>
+            </div>
+        `;
+        
+        // Lógica para os botões de Ação
+        
+        // Botão "Tenho Interesse" (Simulação de WhatsApp)
+        document.getElementById('btnInteresse').addEventListener('click', function() {
+            const mensagem = encodeURIComponent(`Olá, vi o anúncio do carro ${carro.nome} (${carro.ano}) na Garagem do Alemão e tenho interesse. Poderia me passar mais detalhes?`);
+            // Número de WhatsApp genérico, substitua pelo do vendedor se fosse real
+            const linkWhatsApp = `https://wa.me/5511999999999?text=${mensagem}`;
+            window.open(linkWhatsApp, '_blank');
+            mostrarFeedback(`Redirecionando para o WhatsApp do vendedor ${carro.vendedor}...`);
+            fecharCarroModal();
+        });
+
+        // Botão "Denunciar Anúncio"
+        document.getElementById('btnDenuncia').addEventListener('click', function() {
+            if (confirm(`Tem certeza que deseja denunciar o anúncio do ${carro.nome} do vendedor ${carro.vendedor}?`)) {
+                mostrarFeedback(`O anúncio do ${carro.nome} foi denunciado. Analisaremos em breve.`);
+                fecharCarroModal();
+            }
+        });
+    }
+
+    // Fecha a modal
+    function fecharCarroModal() {
+        if (modal) {
+            modal.classList.add('oculto');
+            document.body.style.overflow = ''; // Restaura a rolagem
+        }
+    }
+
+    // Função para adicionar os Listeners da Modal nos botões de "Ver detalhes"
+    function adicionarListenersModal() {
+        const botoesDetalhes = document.querySelectorAll('.btn-detalhes-modal');
+        botoesDetalhes.forEach(botao => {
+            botao.addEventListener('click', function(e) {
+                e.preventDefault();
+                const carroId = parseInt(this.getAttribute('data-id'));
+                const carroSelecionado = todosCarros.find(carro => carro.id === carroId);
+                
+                if (carroSelecionado) {
+                    preencherModal(carroSelecionado); 
+                    modal.classList.remove('oculto');
+                    document.body.style.overflow = 'hidden'; 
                 }
             });
         });
     }
+
+    // Função para renderizar os cards no HTML
+    function renderizarCarros(lista, maxCards = null) {
+        if (!containerCarros) return;
+        containerCarros.innerHTML = ''; // Limpa o container
+        
+        const listaRenderizar = maxCards ? lista.slice(0, maxCards) : lista;
+
+        listaRenderizar.forEach(carro => {
+            const card = document.createElement('div');
+            card.classList.add('card-carro');
+            card.setAttribute('data-id', carro.id); 
+            
+            // Formatando o preço para BRL
+            const precoFormatado = carro.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0 });
+
+            card.innerHTML = `
+                <img src="${carro.imagem}" alt="${carro.nome}">
+                <div class="card-info">
+                    <h4 class="nome-carro">${carro.nome}</h4>
+                    <p>${carro.ano} | ${carro.estado} | ${precoFormatado}</p>
+                    <a href="#" class="btn-detalhes-modal" data-id="${carro.id}">Ver detalhes</a>
+                </div>
+            `;
+            containerCarros.appendChild(card);
+        });
+        
+        adicionarListenersModal(); // Adiciona os listeners nos novos botões
+    }
+    
+    // Configura o fechamento da Modal
+    if (fecharModal) {
+        fecharModal.addEventListener('click', fecharCarroModal);
+    }
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                fecharCarroModal();
+            }
+        });
+    }
+
+    // --- LÓGICA DA PÁGINA CARROS.HTML (PESQUISA) ---
+    if (inputBusca) {
+        // Renderiza todos os carros na página "carros.html"
+        renderizarCarros(todosCarros); 
+        
+        // Adiciona o listener para a pesquisa (Busca)
+        inputBusca.addEventListener('keyup', function() {
+            const termoDigitado = inputBusca.value.toLowerCase();
+            
+            // Filtra o array de dados por nome, marca, ano ou estado
+            const carrosFiltrados = todosCarros.filter(carro => {
+                const termoBusca = `${carro.nome} ${carro.marca} ${carro.ano} ${carro.estado}`.toLowerCase();
+                return termoBusca.includes(termoDigitado);
+            });
+            
+            renderizarCarros(carrosFiltrados);
+            
+            if (carrosFiltrados.length === 0 && termoDigitado.length > 0) {
+                 mostrarFeedback('Nenhum carro encontrado com esse termo.');
+            }
+        });
+    }
+    
+    // --- LÓGICA DA PÁGINA HOME.HTML (DESTAQUES) ---
+    // Verifica se estamos na index.html pelo caminho da URL
+    if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/' || containerCarros && !inputBusca) {
+        // Renderiza apenas os 8 primeiros carros na página inicial (Destaques)
+        renderizarCarros(todosCarros, 8); 
+    }
+
 
     // --- LÓGICA DA PÁGINA CONTATO.HTML ---
     const formContato = document.getElementById('formContato');
