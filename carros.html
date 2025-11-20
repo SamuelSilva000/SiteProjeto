@@ -1,1 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garagem do Alemão - Estoque</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+    <header>
+        <div class="container">
+            <h1 class="logo">Garagem do Alemão</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="carros.html">Carros</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                    <li class="nav-conta"><a href="conta.html" id="linkConta">Conta</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="busca-section">
+        <div class="container">
+            <h2>Carros Disponíveis</h2>
+            <input type="text" id="campoPesquisa" placeholder="Pesquise por modelo (Ex: Gol, Palio...)">
+        </div>
+    </section>
+
+    <main class="container">
+        <div class="grid-destaques" id="listaCarros">
+            </div>
+    </main>
+
+    <div id="carroModal" class="modal-overlay oculto">
+        <div class="modal-container">
+            <button id="fecharModal" class="fechar-modal">×</button>
+            <div id="modalBody" class="modal-body">
+                </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Garagem do Alemão - Projeto Acadêmico Senac</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
