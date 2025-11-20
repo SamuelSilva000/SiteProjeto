@@ -1,1 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garagem do Alemão - Conta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+    <header>
+        <div class="container">
+            <h1 class="logo">Garagem do Alemão</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="carros.html">Carros</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                    <li class="nav-conta"><a href="conta.html" id="linkConta">Conta</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="area-conta" id="areaConta">
+
+            <form id="formLogin" class="form-card">
+                <h2>Acesso de Clientes</h2>
+                
+                <label for="loginEmail">E-mail:</label>
+                <input type="email" id="loginEmail" required>
+
+                <label for="loginSenha">Senha:</label>
+                <input type="password" id="loginSenha" autocomplete="current-password" required> 
+
+                <button type="submit" class="btn-principal">Entrar</button>
+
+                <p class="link-secundario">
+                    <a href="#" id="linkEsqueciSenha">Esqueci minha senha</a>
+                </p>
+                <p class="link-secundario">
+                    <a href="#" id="linkCadastro">Ainda não tem conta? Cadastre-se</a>
+                </p>
+            </form>
+
+            <form id="formCadastro" class="form-card oculto">
+                <h2>Crie sua Conta</h2>
+
+                <label for="cadastroNome">Nome Completo:</label>
+                <input type="text" id="cadastroNome" required>
+                
+                <label for="cadastroEmail">E-mail:</label>
+                <input type="email" id="cadastroEmail" required>
+
+                <label for="cadastroSenha">Senha:</label>
+                <input type="password" id="cadastroSenha" autocomplete="new-password" minlength="6" required> 
+                
+                <label for="cadastroConfirmaSenha">Confirme a Senha:</label>
+                <input type="password" id="cadastroConfirmaSenha" autocomplete="new-password" minlength="6" required> 
+                
+                <small class="aviso-senha">Mínimo 6 caracteres, 1 maiúsculo e 1 caractere especial.</small>
+
+                <hr>
+                <label for="cep">CEP:</label>
+                <input type="text" id="cep" maxlength="8" required> 
+                
+                <label for="endereco">Rua/Avenida:</label>
+                <input type="text" id="endereco" readonly required> 
+
+                <label for="bairro">Bairro:</label>
+                <input type="text" id="bairro" readonly required>
+
+                <label for="cidade">Cidade:</label>
+                <input type="text" id="cidade" readonly required>
+
+                <label for="estado">Estado:</label>
+                <input type="text" id="estado" readonly maxlength="2" required>
+
+                <label for="numero">Número:</label>
+                <input type="text" id="numero" required>
+
+                <button type="submit" class="btn-principal">Cadastrar</button>
+
+                <p class="link-secundario">
+                    <a href="#" id="linkVoltarLogin">Já tenho conta. Voltar ao Login</a>
+                </p>
+            </form>
+
+             <form id="formEsqueciSenha" class="form-card oculto">
+                <h2>Redefinir Senha</h2>
+                
+                <p>Informe o e-mail cadastrado para receber o link de redefinição.</p>
+
+                <label for="esqueciEmail">E-mail:</label>
+                <input type="email" id="esqueciEmail" required>
+
+                <button type="submit" class="btn-principal">Enviar Redefinição</button>
+
+                <p class="link-secundario">
+                    <a href="#" id="linkVoltarLogin2">Voltar ao Login</a>
+                </p>
+            </form>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Garagem do Alemão - Projeto Acadêmico Senac</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
